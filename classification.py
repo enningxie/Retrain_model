@@ -71,7 +71,61 @@ parser.add_argument(
     help='Name of the input operation')
 
 
+def apk(actual, predicted, k=10):
+    """
+    Computes the average precision at k.
+    This function computes the average prescision at k between two lists of
+    items.
+    Parameters
+    ----------
+    actual : list
+             A list of elements that are to be predicted (order doesn't matter)
+    predicted : list
+                A list of predicted elements (order does matter)
+    k : int, optional
+        The maximum number of predicted elements
+    Returns
+    -------
+    score : double
+            The average precision at k over the input lists
+    """
+    if len(predicted)>k:
+        predicted = predicted[:k]
 
+    score = 0.0
+    num_hits = 0.0
+
+    for i,p in enumerate(predicted):
+        if p in actual and p not in predicted[:i]:
+            num_hits += 1.0
+            score += num_hits / (i+1.0)
+
+    if not actual:
+        return 0.0
+
+    return score / min(len(actual), k)
+
+def mapk(actual, predicted, k=10):
+    """
+    Computes the mean average precision at k.
+    This function computes the mean average prescision at k between two lists
+    of lists of items.
+    Parameters
+    ----------
+    actual : list
+             A list of lists of elements that are to be predicted
+             (order doesn't matter in the lists)
+    predicted : list
+                A list of lists of predicted elements
+                (order matters in the lists)
+    k : int, optional
+        The maximum number of predicted elements
+    Returns
+    -------
+    score : double
+            The mean average precision at k over the input lists
+    """
+    return np.mean([apk(a,p,k) for a,p in zip(actual, predicted)])
 
 def load_image(filename):
   """Read in the image_data to be classified."""
@@ -110,7 +164,7 @@ def run_graph(image_data, labels, input_layer_name, output_layer_name,
         top_k = predictions.argsort()[-num_top_predictions:][::-1]
         logits.append(top_k[0])
 
-    return logits
+    return logits, preds
 
 
 def main(_):
@@ -124,6 +178,7 @@ def main(_):
 
   if not tf.gfile.Exists(FLAGS.graph):
     tf.logging.fatal('graph file does not exist %s', FLAGS.graph)
+
 
   # load labels
   labels = load_labels(FLAGS.labels)
@@ -139,7 +194,7 @@ def main(_):
   # load graph, which is stored in the default session
   load_graph(FLAGS.graph)
 
-  logits = run_graph(image_data, labels, FLAGS.input_layer, FLAGS.output_layer,
+  logits, preds = run_graph(image_data, labels, FLAGS.input_layer, FLAGS.output_layer,
             FLAGS.num_top_predictions)
 
   print(len(true_y))
@@ -148,6 +203,9 @@ def main(_):
       if true_y[i] != logits[i]:
           count += 1
   print(count)
+
+  mAP = mapk([true_y], [logits], k=94)
+  print(mAP)
 
 
 if __name__ == '__main__':
