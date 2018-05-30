@@ -13,8 +13,8 @@ def parser():
     argparser = argparse.ArgumentParser()
     argparser.add_argument('--test_path', default='/home/enningxie/Documents/DataSets/test')
     argparser.add_argument('--test_set_path', default='/home/enningxie/Documents/DataSets/data_augmentation_13/amxx0001003')
-    argparser.add_argument('--data_test_path', default='/home/enningxie/Documents/DataSets/data_augmentation_13_test')
-    argparser.add_argument('--data_path', default='/home/enningxie/Documents/DataSets/data_augmentation_13', type=str)
+    argparser.add_argument('--data_test_path', default='/var/Data/xz/butterfly/data_augmentation_14_test')
+    argparser.add_argument('--data_path', default='/var/Data/xz/butterfly/data_augmentation_14', type=str)
     return argparser.parse_args()
 
 
@@ -47,13 +47,14 @@ def train_test_split_(data_path, test_set_path):
 
 def construct_folders(data_path):
     for data in os.listdir(data_path):
-        mkdir_op(os.path.join(data_path, data[:11]))
+        mkdir_op(os.path.join(data_path, data[:11].lower()))
     for dir_name in os.listdir(data_path):
         if not os.path.isdir(os.path.join(data_path, dir_name)):
-            shutil.move(os.path.join(data_path, dir_name), os.path.join(os.path.join(data_path, dir_name[:11]), dir_name))
+            shutil.move(os.path.join(data_path, dir_name), os.path.join(os.path.join(data_path, dir_name[:11].lower()), dir_name))
 
 if __name__ == '__main__':
     FLAGS = parser()
-    copy_op(FLAGS.test_set_path)
+    train_test_split_(FLAGS.data_path, FLAGS.data_test_path)
+    construct_folders(FLAGS.data_path)
 
 
