@@ -204,7 +204,7 @@ def main(_):
           count += 1
   print(count)
 
-  mAP = mapk([true_y], [logits], k=94)
+  mAP = mapk([true_y], [logits], k=1)
   print(mAP)
 
 
