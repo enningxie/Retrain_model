@@ -27,12 +27,13 @@ def mkdir_op(source_name):
 def copy_op(source_path):
     data_list = os.listdir(source_path)
     for dir_ in data_list:
-        if os.path.isdir(dir_):
+        if os.path.isdir(os.path.join(source_path, dir_)):
             count = 0
             while len(os.listdir(os.path.join(source_path, dir_))) < 50:
                 for data in os.listdir(os.path.join(source_path, dir_)):
                     new_name = str(count) + data
                     shutil.copy(os.path.join(os.path.join(source_path, dir_), data), os.path.join(os.path.join(source_path, dir_), new_name))
+                count += 1
 
 
 
