@@ -22,6 +22,7 @@ import argparse
 import numpy as np
 import tensorflow as tf
 import os
+import time
 
 def load_graph(model_file):
   graph = tf.Graph()
@@ -58,8 +59,10 @@ def read_tensor_from_image_file(file_name,
   dims_expander = tf.expand_dims(float_caster, 0)
   resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
   normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
-  sess = tf.Session()
-  result = sess.run(normalized)
+  with tf.Session() as sess:
+
+    result = sess.run(normalized)
+
 
   return result
 
@@ -73,12 +76,13 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
+  start_time = time.time()
   file_name = "tensorflow/examples/label_image/data/grace_hopper.jpg"
   model_file = \
     "tensorflow/examples/label_image/data/inception_v3_2016_08_28_frozen.pb"
   label_file = "tensorflow/examples/label_image/data/imagenet_slim_labels.txt"
-  input_height = 299
-  input_width = 299
+  input_height = 331
+  input_width = 331
   input_mean = 0
   input_std = 255
   # input_layer = "input"
@@ -86,8 +90,8 @@ if __name__ == "__main__":
 
   parser = argparse.ArgumentParser()
   parser.add_argument("--image", default='/home/enningxie/Documents/DataSets/data_augmentation_13_test', help="image to be processed")
-  parser.add_argument("--graph", default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_graph.pb', help="graph/model to be executed")
-  parser.add_argument("--labels", default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_labels.txt', help="name of file containing labels")
+  parser.add_argument("--graph", default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb', help="graph/model to be executed")
+  parser.add_argument("--labels", default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt', help="name of file containing labels")
   parser.add_argument("--input_height", type=int, help="input height")
   parser.add_argument("--input_width", type=int, help="input width")
   parser.add_argument("--input_mean", type=int, help="input mean")
@@ -115,13 +119,10 @@ if __name__ == "__main__":
   if args.output_layer:
     output_layer = args.output_layer
 
-  graph = load_graph(model_file)
+
 
   labels = load_labels(label_file)
 
-  tensor_name_list = [tensor.name for tensor in graph.as_graph_def().node]
-  for tensor_name in tensor_name_list:
-      print(tensor_name, '\n')
 
   images = []
   true_y = []
@@ -137,9 +138,13 @@ if __name__ == "__main__":
 
   input_name = "import/" + input_layer
   output_name = "import/" + output_layer
+
+  graph = load_graph(model_file)
   output_tensor = graph.get_tensor_by_name(output_name)
   results_list = []
   logits = []
+
+
 
   with tf.Session(graph=graph) as sess:
     for image in images:
@@ -152,6 +157,7 @@ if __name__ == "__main__":
   for predictions in results_list:
     top_k = predictions.argsort()[-1:][::-1]
     logits.append(top_k[0])
+  print(time.time()-start_time)
 
   print(len(true_y))
   count = 0
