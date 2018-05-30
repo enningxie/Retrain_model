@@ -77,17 +77,17 @@ if __name__ == "__main__":
   model_file = \
     "tensorflow/examples/label_image/data/inception_v3_2016_08_28_frozen.pb"
   label_file = "tensorflow/examples/label_image/data/imagenet_slim_labels.txt"
-  input_height = 331
-  input_width = 331
+  input_height = 299
+  input_width = 299
   input_mean = 0
   input_std = 255
   # input_layer = "input"
   # output_layer = "InceptionV3/Predictions/Reshape_1"
 
   parser = argparse.ArgumentParser()
-  parser.add_argument("--image", default='/var/Data/xz/butterfly/data_augmentation_13_test', help="image to be processed")
-  parser.add_argument("--graph", default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_graph.pb', help="graph/model to be executed")
-  parser.add_argument("--labels", default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_labels.txt', help="name of file containing labels")
+  parser.add_argument("--image", default='/home/enningxie/Documents/DataSets/data_augmentation_13_test', help="image to be processed")
+  parser.add_argument("--graph", default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_graph.pb', help="graph/model to be executed")
+  parser.add_argument("--labels", default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_labels.txt', help="name of file containing labels")
   parser.add_argument("--input_height", type=int, help="input height")
   parser.add_argument("--input_width", type=int, help="input width")
   parser.add_argument("--input_mean", type=int, help="input mean")
@@ -117,6 +117,8 @@ if __name__ == "__main__":
 
   graph = load_graph(model_file)
 
+  labels = load_labels(label_file)
+
   tensor_name_list = [tensor.name for tensor in graph.as_graph_def().node]
   for tensor_name in tensor_name_list:
       print(tensor_name, '\n')
@@ -124,7 +126,7 @@ if __name__ == "__main__":
   images = []
   true_y = []
   for data in os.listdir(file_name):
-    true_y.append(label_file.index(data[:11].lower()))
+    true_y.append(labels.index(data[:11].lower()))
     t = read_tensor_from_image_file(
       os.path.join(file_name, data),
       input_height=input_height,
