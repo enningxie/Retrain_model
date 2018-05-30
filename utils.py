@@ -28,8 +28,8 @@ def copy_op(source_path):
     data_list = os.listdir(source_path)
     for dir_ in data_list:
         if os.path.isdir(os.path.join(source_path, dir_)):
-            count = 0
-            while len(os.listdir(os.path.join(source_path, dir_))) < 50:
+            count = 3
+            while len(os.listdir(os.path.join(source_path, dir_))) < 70:
                 for data in os.listdir(os.path.join(source_path, dir_)):
                     new_name = str(count) + data
                     shutil.copy(os.path.join(os.path.join(source_path, dir_), data), os.path.join(os.path.join(source_path, dir_), new_name))
@@ -61,7 +61,7 @@ def construct_folders(data_path):
 if __name__ == '__main__':
     FLAGS = parser()
     # train_test_split_(FLAGS.data_path, FLAGS.data_test_path)
-    construct_folders(FLAGS.data_path)
+    # construct_folders(FLAGS.data_path)
     copy_op(FLAGS.data_path)
 
 
