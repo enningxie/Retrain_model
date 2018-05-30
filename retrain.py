@@ -1161,19 +1161,19 @@ if __name__ == '__main__':
   parser.add_argument(
       '--image_dir',
       type=str,
-      default='/var/Data/xz/butterfly/data_augmentation_13',
+      default='/home/enningxie/Documents/DataSets/data_augmentation_13',
       help='Path to folders of labeled images.'
   )
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_graph.pb',
+      default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_graph.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/butterfly_15/intermediate_graph/',
+      default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/intermediate_graph/',
       help='Where to save the intermediate graphs.'
   )
   parser.add_argument(
@@ -1188,13 +1188,13 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_labels',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_labels.txt',
+      default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/output_labels.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/butterfly_15/retrain_logs',
+      default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -1268,7 +1268,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/butterfly_15/bottleneck',
+      default='/home/enningxie/Documents/DataSets/trained_model/butterfly_15/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
