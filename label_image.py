@@ -89,15 +89,11 @@ if __name__ == "__main__":
   # output_layer = "InceptionV3/Predictions/Reshape_1"
 
   parser = argparse.ArgumentParser()
-<<<<<<< HEAD
+
   parser.add_argument("--image", default='/var/Data/xz/butterfly/data_augmentation_13_test', help="image to be processed")
   parser.add_argument("--graph", default='/var/Data/xz/butterfly/trained_models/pnasnet/output_graph.pb', help="graph/model to be executed")
   parser.add_argument("--labels", default='/var/Data/xz/butterfly/trained_models/pnasnet/output_labels.txt', help="name of file containing labels")
-=======
-  parser.add_argument("--image", default='/home/enningxie/Documents/DataSets/data_augmentation_13_test', help="image to be processed")
-  parser.add_argument("--graph", default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb', help="graph/model to be executed")
-  parser.add_argument("--labels", default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt', help="name of file containing labels")
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+
   parser.add_argument("--input_height", type=int, help="input height")
   parser.add_argument("--input_width", type=int, help="input width")
   parser.add_argument("--input_mean", type=int, help="input mean")
@@ -126,17 +122,12 @@ if __name__ == "__main__":
     output_layer = args.output_layer
 
 
-<<<<<<< HEAD
+
   labels = load_labels(label_file)
 
   tensor_name_list = [tensor.name for tensor in graph.as_graph_def().node]
   for tensor_name in tensor_name_list:
       print(tensor_name, '\n')
-=======
-
-  labels = load_labels(label_file)
-
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
 
   images = []
   true_y = []

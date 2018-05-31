@@ -136,6 +136,13 @@ def load_labels(filename):
   """Read in labels, one label per line."""
   return [line.rstrip() for line in tf.gfile.GFile(filename)]
 
+def load_labels_(label_file):
+  label = []
+  proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
+  for l in proto_as_ascii_lines:
+    label.append(l.rstrip())
+  return label
+
 
 def load_graph(filename):
   """Unpersists graph from file as default graph."""
@@ -181,7 +188,7 @@ def main(_):
 
 
   # load labels
-  labels = load_labels(FLAGS.labels)
+  labels = load_labels_(FLAGS.labels)
   # load image
   image_data = []
   file_names = []
