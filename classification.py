@@ -51,12 +51,12 @@ parser.add_argument(
     help='Display this many predictions.')
 parser.add_argument(
     '--graph',
-    default='/var/Data/xz/butterfly/trained_models/butterfly_14/output_graph.pb',
+    default='/var/Data/xz/butterfly/trained_models/last/output_graph.pb',
     type=str,
     help='Absolute path to graph file (.pb)')
 parser.add_argument(
     '--labels',
-    default='/var/Data/xz/butterfly/trained_models/butterfly_14/output_labels.txt',
+    default='/var/Data/xz/butterfly/trained_models/last/output_labels.txt',
     type=str,
     help='Absolute path to labels file (.txt)')
 parser.add_argument(
@@ -204,8 +204,8 @@ def main(_):
           count += 1
   print(count)
 
-  mAP = mapk([true_y], [logits], k=10)
-  print(mAP)
+  #mAP = mapk([true_y], [logits], k=10)
+  #print(mAP)
 
 
 if __name__ == '__main__':

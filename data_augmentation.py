@@ -11,14 +11,14 @@ import os
 import cv2
 
 
-IMAGE_SIZE = 331
+IMAGE_SIZE = 299
 IMAGES = 4
 
 
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument('--file_path_', type=str,
-                        default='/home/enningxie/Documents/DataSets/crop_img')
+                        default='/home/enningxie/Documents/DataSets/crop_imag_jpg')
     parser.add_argument('--test_path', type=str,
                         default='/home/enningxie/Documents/DataSets/butterfly_/convert_')
     parser.add_argument('--test_result', type=str,
@@ -26,7 +26,7 @@ def arg_parse():
     parser.add_argument('--test_convert', type=str,
                         default='/home/enningxie/Documents/DataSets/butterfly_/test_convert')
     parser.add_argument('--file_path', type=str, default='/var/Data/xz/butterfly/process_data')
-    parser.add_argument('--process_data', type=str, default='/var/Data/xz/butterfly/data_augmentation_14')
+    parser.add_argument('--process_data', type=str, default='/var/Data/xz/butterfly/data_augmentation_15')
     return parser.parse_args()
 
 

@@ -22,6 +22,7 @@ import argparse
 import numpy as np
 import tensorflow as tf
 import os
+import time
 
 def load_graph(model_file):
   graph = tf.Graph()
@@ -86,8 +87,8 @@ if __name__ == "__main__":
 
   parser = argparse.ArgumentParser()
   parser.add_argument("--image", default='/var/Data/xz/butterfly/data_augmentation_13_test', help="image to be processed")
-  parser.add_argument("--graph", default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_graph.pb', help="graph/model to be executed")
-  parser.add_argument("--labels", default='/var/Data/xz/butterfly/trained_models/butterfly_15/output_labels.txt', help="name of file containing labels")
+  parser.add_argument("--graph", default='/var/Data/xz/butterfly/trained_models/pnasnet/output_graph.pb', help="graph/model to be executed")
+  parser.add_argument("--labels", default='/var/Data/xz/butterfly/trained_models/pnasnet/output_labels.txt', help="name of file containing labels")
   parser.add_argument("--input_height", type=int, help="input height")
   parser.add_argument("--input_width", type=int, help="input width")
   parser.add_argument("--input_mean", type=int, help="input mean")
@@ -117,6 +118,8 @@ if __name__ == "__main__":
 
   graph = load_graph(model_file)
 
+  labels = load_labels(label_file)
+
   tensor_name_list = [tensor.name for tensor in graph.as_graph_def().node]
   for tensor_name in tensor_name_list:
       print(tensor_name, '\n')
@@ -124,7 +127,7 @@ if __name__ == "__main__":
   images = []
   true_y = []
   for data in os.listdir(file_name):
-    true_y.append(label_file.index(data[:11].lower()))
+    true_y.append(labels.index(data[:11].lower()))
     t = read_tensor_from_image_file(
       os.path.join(file_name, data),
       input_height=input_height,
@@ -138,12 +141,16 @@ if __name__ == "__main__":
   output_tensor = graph.get_tensor_by_name(output_name)
   results_list = []
   logits = []
+  count = 0
 
   with tf.Session(graph=graph) as sess:
     for image in images:
+      start_time = time.time()
       results = sess.run(output_tensor, {
         input_name: image
       })
+      print('num: {0}, using {1}.'.format(count, time.time()-start_time))
+      count += 1
       results = np.squeeze(results)
       results_list.append(results)
 
