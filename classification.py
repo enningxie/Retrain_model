@@ -36,14 +36,14 @@ from __future__ import print_function
 
 import argparse
 import sys
-from sklearn.metrics import average_precision_score
 import os
 import tensorflow as tf
 import numpy as np
+from read_box import get_tiny_image
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--image', default='/var/Data/xz/butterfly/data_augmentation_13_test', type=str, help='Absolute path to image file.')
+    '--image', default='/home/enningxie/Documents/DataSets/data_augmentation_13_test', type=str, help='Absolute path to image file.')
 parser.add_argument(
     '--num_top_predictions',
     type=int,
@@ -183,12 +183,12 @@ def main(_):
   # load labels
   labels = load_labels(FLAGS.labels)
   # load image
-  image_data = []
-  true_y = []
-  for image in os.listdir(FLAGS.image):
-    true_y.append(labels.index(image[:11].lower()))
-    image_data.append(load_image(os.path.join(FLAGS.image, image)))
-
+  # image_data = []
+  # true_y = []
+  # for image in os.listdir(FLAGS.image):
+  #   true_y.append(labels.index(image[:11].lower()))
+  #   image_data.append(load_image(os.path.join(FLAGS.image, image)))
+  file_names, image_data = get_tiny_image()
 
 
   # load graph, which is stored in the default session
@@ -197,13 +197,19 @@ def main(_):
   logits, preds = run_graph(image_data, labels, FLAGS.input_layer, FLAGS.output_layer,
             FLAGS.num_top_predictions)
 
-  print(len(true_y))
-  count = 0
-  for i in range(len(true_y)):
-      if true_y[i] != logits[i]:
-          count += 1
-  print(count)
-
+  # print(len(true_y))
+  # count = 0
+  # for i in range(len(true_y)):
+  #     if true_y[i] != logits[i]:
+  #         count += 1
+  # print(count)
+  print(logits)
+  for i in logits:
+    print(labels[i])
+  with open('./last_result.txt', 'a') as f:
+    for file_name, label_index in zip(file_names, logits):
+      str_ = file_name + ' ' + labels[label_index] + '\n'
+      f.write(str_)
   #mAP = mapk([true_y], [logits], k=10)
   #print(mAP)
 

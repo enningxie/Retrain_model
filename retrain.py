@@ -1167,13 +1167,21 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/pnasnet/output_graph.pb',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/pnasnet/intermediate_graph/',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/intermediate_graph/',
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help='Where to save the intermediate graphs.'
   )
   parser.add_argument(
@@ -1188,13 +1196,21 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_labels',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/pnasnet/output_labels.txt',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/pnasnet/retrain_logs',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/retrain_logs',
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -1268,7 +1284,11 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/pnasnet/bottleneck',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/bottleneck',
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
@@ -1318,7 +1338,11 @@ if __name__ == '__main__':
       '--tfhub_module',
       type=str,
       default=(
+<<<<<<< HEAD
           'https://tfhub.dev/google/imagenet/pnasnet_large/feature_vector/1'),
+=======
+          'https://tfhub.dev/google/imagenet/nasnet_large/feature_vector/1'),
+>>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help="""\
       Which TensorFlow Hub module to use.
       See https://github.com/tensorflow/hub/blob/r0.1/docs/modules/image.md
