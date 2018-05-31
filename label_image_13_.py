@@ -41,7 +41,7 @@ import tensorflow as tf
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--image', default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15/ALac0003001_1_661.jpg', type=str, help='Absolute path to image file.')
+    '--image', default='/home/enningxie/Documents/DataSets/butter_data/saveImages/AGae0018001_1.jpg', type=str, help='Absolute path to image file.')
 parser.add_argument(
     '--num_top_predictions',
     type=int,
@@ -49,12 +49,12 @@ parser.add_argument(
     help='Display this many predictions.')
 parser.add_argument(
     '--graph',
-    default='/home/enningxie/Documents/DataSets/trained_model/butterfly_14/output_graph.pb',
+    default='/home/enningxie/Documents/DataSets/trained_model/last/output_graph.pb',
     type=str,
     help='Absolute path to graph file (.pb)')
 parser.add_argument(
     '--labels',
-    default='/home/enningxie/Documents/DataSets/trained_model/butterfly_14/output_labels.txt',
+    default='/home/enningxie/Documents/DataSets/trained_model/last/output_labels.txt',
     type=str,
     help='Absolute path to labels file (.txt)')
 parser.add_argument(

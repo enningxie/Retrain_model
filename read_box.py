@@ -23,6 +23,7 @@ def input_data():
             ymin.append(float(ymin_1))
             xmax.append(float(xmax_1))
             ymax.append(float(ymax_1))
+    name = np.array(name)
     xmin = np.array(xmin)
     ymin = np.array(ymin)
     xmax = np.array(xmax)
@@ -35,7 +36,6 @@ def box_image(name, xmin, ymin, xmax, ymax):
     image_dir = '/var/Data/xz/butterfly/JPEGImages'
     to_path = '/var/Data/xz/butterfly/saveImages'
     name_2 = ''
-    tiny_box = []
     for name_1, xmin_1, ymin_1,xmax_1,ymax_1 in zip(name, xmin, ymin, xmax, ymax):
         if name_1 != name_2:
             name_2 = name_1
@@ -43,13 +43,11 @@ def box_image(name, xmin, ymin, xmax, ymax):
             image = cv2.imread(image_path)
             image_cp = image[int(ymin_1):int(ymax_1), int(xmin_1):int(xmax_1)]
             cv2.imwrite(os.path.join(to_path, name_1 + '.jpg'), image_cp)
-            img_tf = tf.gfile.FastGFile(os.path.join(to_path, name_1 + '.jpg'), 'rb').read()
-            tiny_box.append(img_tf)
-    return tiny_box
+
 
 
 def get_tiny_image():
     n, x1, y1, x2, y2 = input_data()
-    return n, box_image(n, x1, y1, x2, y2)
+    box_image(n, x1, y1, x2, y2)
 
 
