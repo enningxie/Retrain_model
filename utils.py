@@ -14,7 +14,7 @@ def parser():
     argparser.add_argument('--test_path', default='/home/enningxie/Documents/DataSets/test')
     argparser.add_argument('--test_set_path', default='/home/enningxie/Documents/DataSets/data_augmentation_13/amxx0001003')
     argparser.add_argument('--data_test_path', default='/var/Data/xz/butterfly/data_augmentation_14_test')
-    argparser.add_argument('--data_path', default='/var/Data/xz/butterfly/data_augmentation_13', type=str)
+    argparser.add_argument('--data_path', default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15', type=str)
     return argparser.parse_args()
 
 

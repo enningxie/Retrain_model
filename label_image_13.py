@@ -193,7 +193,6 @@ def main(_):
           print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
           del node.attr["dilations"]
   for node in tf.get_default_graph().as_graph_def().node:
-      print(node.attr)
       if "dilations" in node.attr:
           print('--------------------------------')
           del node.attr["dilations"]

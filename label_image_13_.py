@@ -41,11 +41,11 @@ import tensorflow as tf
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--image', default='/home/enningxie/Documents/DataSets/data_augmentation_13_test', type=str, help='Absolute path to image file.')
+    '--image', default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15/ALac0003001_1_661.jpg', type=str, help='Absolute path to image file.')
 parser.add_argument(
     '--num_top_predictions',
     type=int,
-    default=1,
+    default=10,
     help='Display this many predictions.')
 parser.add_argument(
     '--graph',
