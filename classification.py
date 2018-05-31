@@ -159,6 +159,7 @@ def run_graph(image_data, labels, input_layer_name, output_layer_name,
     #   predictions  will contain a two-dimensional array, where one
     #   dimension represents the input image count, and the other has
     #   predictions per class
+    # sess.run(tf.global_variables_initializer())
     preds = []
     logits = []
     softmax_tensor = sess.graph.get_tensor_by_name(output_layer_name)
@@ -196,11 +197,11 @@ def main(_):
   # for image in os.listdir(FLAGS.image):
   #   true_y.append(labels.index(image[:11].lower()))
   #   image_data.append(load_image(os.path.join(FLAGS.image, image)))
-  # get_tiny_image()
-  for image in os.listdir(FLAGS.image):
-    file_names.append(image)
-    # true_y.append(labels.index(image[:11].lower()))
-    image_data.append(load_image(os.path.join(FLAGS.image, image)))
+  file_names, image_data = get_tiny_image()
+  # for image in os.listdir(FLAGS.image):
+  #   file_names.append(image)
+  #   # true_y.append(labels.index(image[:11].lower()))
+  #   image_data.append(load_image(os.path.join(FLAGS.image, image)))
 
 
 
@@ -222,8 +223,6 @@ def main(_):
       f.write(str_)
   #mAP = mapk([true_y], [logits], k=10)
   #print(mAP)
-
-
 
 
 if __name__ == '__main__':
