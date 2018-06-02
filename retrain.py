@@ -1166,20 +1166,32 @@ if __name__ == '__main__':
   parser.add_argument(
       '--image_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/last/data_augmentation_15',
+=======
+      default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       help='Path to folders of labeled images.'
   )
   parser.add_argument(
       '--output_graph',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/inception4/output_graph.pb',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/output_graph.pb',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/inception4/intermediate_graph/',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/intermediate_graph/',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/intermediate_graph/',
       help='Where to save the intermediate graphs.'
   )
@@ -1196,14 +1208,22 @@ if __name__ == '__main__':
       '--output_labels',
       type=str,
 
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/inception4/output_labels.txt',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/output_labels.txt',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/inception4/retrain_logs',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/retrain_logs',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
@@ -1278,7 +1298,11 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
+<<<<<<< HEAD
       default='/var/Data/xz/butterfly/trained_models/inception4/bottleneck',
+=======
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/bottleneck',
+>>>>>>> f67b5717870df33f645da5831a930445edf061fa
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
