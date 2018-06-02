@@ -1,60 +1,24 @@
-# Copyright 2016 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-"""Simple image classification with Inception.
-Run image classification with your model.
-This script is usually used with retrain.py found in this same
-directory.
-This program creates a graph from a saved GraphDef protocol buffer,
-and runs inference on an input JPEG image. You are required
-to pass in the graph file and the txt file.
-It outputs human readable strings of the top 5 predictions along with
-their probabilities.
-Change the --image_file argument to any jpg image to compute a
-classification of that image.
-Example usage:
-python label_image.py --graph=retrained_graph.pb
-  --labels=retrained_labels.txt
-  --image=flower_photos/daisy/54377391_15648e8d18.jpg
-NOTE: To learn to use this file and retrain.py, please see:
-https://codelabs.developers.google.com/codelabs/tensorflow-for-poets
-"""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import argparse
 import sys
-
+import os
 import tensorflow as tf
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--image', default='/home/enningxie/Documents/DataSets/butter_data/saveImages/AGae0018001_1.jpg', type=str, help='Absolute path to image file.')
+    '--image', default='/var/Data/xz/butterfly/crop_img1', type=str, help='Absolute path to image file.')
 parser.add_argument(
     '--num_top_predictions',
     type=int,
-    default=5,
+    default=1,
     help='Display this many predictions.')
 parser.add_argument(
     '--graph',
-    default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
+    default='/var/Data/xz/butterfly/trained_models/inception4/output_graph.pb',
     type=str,
     help='Absolute path to graph file (.pb)')
 parser.add_argument(
     '--labels',
-    default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
+    default='/var/Data/xz/butterfly/trained_models/inception4/output_labels.txt',
     type=str,
     help='Absolute path to labels file (.txt)')
 parser.add_argument(
@@ -172,12 +136,19 @@ def main(_):
 
   # load image
   image_data = load_image(FLAGS.image)
-  t = read_tensor_from_image_file(
-      FLAGS.image,
-      input_height=331,
-      input_width=331,
-      input_mean=0,
-      input_std=255)
+  images_data = []
+  image_files = os.listdir(FLAGS.image)
+  for image_file in image_files:
+      image_path = os.path.join(FLAGS.image, image_file)
+      t = read_tensor_from_image_file(
+          image_path,
+          input_height=299,
+          input_width=299,
+          input_mean=0,
+          input_std=255)
+      images_data.append(t)
+
+
 
   # load labels
   labels = load_labels(FLAGS.labels)
@@ -186,32 +157,30 @@ def main(_):
   load_graph(FLAGS.graph)
 
 
-
-  # fix_graph_def(graph_cur.as_graph_def())
-
-  for node in tf.get_default_graph().as_graph_def().node:
-      if "dilations" in node.attr:
-          print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-          del node.attr["dilations"]
-  for node in tf.get_default_graph().as_graph_def().node:
-      if "dilations" in node.attr:
-          print('--------------------------------')
-          del node.attr["dilations"]
-
   with tf.Session() as sess:
     # Feed the image_data as input to the graph.
     #   predictions  will contain a two-dimensional array, where one
     #   dimension represents the input image count, and the other has
     #   predictions per class
     softmax_tensor = sess.graph.get_tensor_by_name(FLAGS.output_layer)
-    predictions, = sess.run(softmax_tensor, {FLAGS.input_layer: t})
+    preds = []
+    for image_data_ in images_data:
+        predictions, = sess.run(softmax_tensor, {FLAGS.input_layer: image_data_})
+        preds.append(predictions)
 
     # Sort to show labels in order of confidence
-    top_k = predictions.argsort()[-FLAGS.num_top_predictions:][::-1]
-    for node_id in top_k:
-      human_string = labels[node_id]
-      score = predictions[node_id]
-      print('%s (score = %.5f)' % (human_string, score))
+    logits = []
+    for pred in preds:
+        top_k = pred.argsort()[-FLAGS.num_top_predictions:][::-1]
+        logits.append(top_k[0])
+
+    with open('./last_result_v2.txt', 'a') as f:
+        for file_name, label_index in zip(image_files, logits):
+            str_ = file_name + ' ' + labels[label_index] + '\n'
+            f.write(str_)
+
+
+
 
   # run_graph(graph_cur, t, labels, FLAGS.input_layer, FLAGS.output_layer,
   #           FLAGS.num_top_predictions)

@@ -1166,20 +1166,20 @@ if __name__ == '__main__':
   parser.add_argument(
       '--image_dir',
       type=str,
-      default='/var/Data/xz/butterfly/data_augmentation_13',
+      default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15',
       help='Path to folders of labeled images.'
   )
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/output_graph.pb',
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/output_graph.pb',
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/intermediate_graph/',
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/intermediate_graph/',
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/intermediate_graph/',
       help='Where to save the intermediate graphs.'
   )
@@ -1196,14 +1196,14 @@ if __name__ == '__main__':
       '--output_labels',
       type=str,
 
-      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/output_labels.txt',
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/output_labels.txt',
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/retrain_logs',
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/retrain_logs',
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
@@ -1278,7 +1278,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/bottleneck',
+      default='/home/enningxie/Documents/DataSets/trained_model/inception_resnet_v2_2016_08_30/bottleneck',
       # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
@@ -1329,7 +1329,7 @@ if __name__ == '__main__':
       '--tfhub_module',
       type=str,
       default=(
-          'https://tfhub.dev/google/imagenet/pnasnet_large/feature_vector/1'),
+          'https://tfhub.dev/google/imagenet/inception_resnet_v2/feature_vector/1'),
       help="""\
       Which TensorFlow Hub module to use.
       See https://github.com/tensorflow/hub/blob/r0.1/docs/modules/image.md

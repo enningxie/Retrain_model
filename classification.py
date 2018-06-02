@@ -197,11 +197,11 @@ def main(_):
   # for image in os.listdir(FLAGS.image):
   #   true_y.append(labels.index(image[:11].lower()))
   #   image_data.append(load_image(os.path.join(FLAGS.image, image)))
-  file_names, image_data = get_tiny_image()
-  # for image in os.listdir(FLAGS.image):
-  #   file_names.append(image)
-  #   # true_y.append(labels.index(image[:11].lower()))
-  #   image_data.append(load_image(os.path.join(FLAGS.image, image)))
+  # file_names, image_data = get_tiny_image()
+  for image in os.listdir(FLAGS.image):
+    file_names.append(image)
+    # true_y.append(labels.index(image[:11].lower()))
+    image_data.append(load_image(os.path.join(FLAGS.image, image)))
 
 
 
