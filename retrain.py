@@ -902,6 +902,11 @@ def save_graph_to_file(graph, graph_file_name, module_spec, class_count):
   sess, _, _, _, _, _ = build_eval_session(module_spec, class_count)
   graph = sess.graph
 
+  for node in graph.as_graph_def().node:
+      if "dilations" in node.attr:
+          print('+++++++++++++++++++++++++++++++++++++++++++++++++++++++')
+          del node.attr["dilations"]
+
   output_graph_def = tf.graph_util.convert_variables_to_constants(
       sess, graph.as_graph_def(), [FLAGS.final_tensor_name])
 
@@ -1167,21 +1172,15 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-<<<<<<< HEAD
-      default='/var/Data/xz/butterfly/trained_models/pnasnet/output_graph.pb',
-=======
-      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/output_graph.pb',
+      # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_graph.pb',
       help='Where to save the trained graph.'
   )
   parser.add_argument(
       '--intermediate_output_graphs_dir',
       type=str,
-<<<<<<< HEAD
-      default='/var/Data/xz/butterfly/trained_models/pnasnet/intermediate_graph/',
-=======
-      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/intermediate_graph/',
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/intermediate_graph/',
+      # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/intermediate_graph/',
       help='Where to save the intermediate graphs.'
   )
   parser.add_argument(
@@ -1196,21 +1195,16 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_labels',
       type=str,
-<<<<<<< HEAD
-      default='/var/Data/xz/butterfly/trained_models/pnasnet/output_labels.txt',
-=======
-      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+
+      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/output_labels.txt',
+      # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/output_labels.txt',
       help='Where to save the trained graph\'s labels.'
   )
   parser.add_argument(
       '--summaries_dir',
       type=str,
-<<<<<<< HEAD
-      default='/var/Data/xz/butterfly/trained_models/pnasnet/retrain_logs',
-=======
-      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/retrain_logs',
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/retrain_logs',
+      # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/retrain_logs',
       help='Where to save summary logs for TensorBoard.'
   )
   parser.add_argument(
@@ -1284,11 +1278,8 @@ if __name__ == '__main__':
   parser.add_argument(
       '--bottleneck_dir',
       type=str,
-<<<<<<< HEAD
-      default='/var/Data/xz/butterfly/trained_models/pnasnet/bottleneck',
-=======
-      default='/home/enningxie/Documents/DataSets/trained_model/nasnet/bottleneck',
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
+      default='/var/Data/xz/butterfly/trained_models/pnasnet_new/bottleneck',
+      # default='/home/enningxie/Documents/DataSets/trained_model/nasnet/bottleneck',
       help='Path to cache bottleneck layer values as files.'
   )
   parser.add_argument(
@@ -1338,11 +1329,7 @@ if __name__ == '__main__':
       '--tfhub_module',
       type=str,
       default=(
-<<<<<<< HEAD
           'https://tfhub.dev/google/imagenet/pnasnet_large/feature_vector/1'),
-=======
-          'https://tfhub.dev/google/imagenet/nasnet_large/feature_vector/1'),
->>>>>>> 5406f1f1ab580479b80bdd227797cb8a2d9f0ddf
       help="""\
       Which TensorFlow Hub module to use.
       See https://github.com/tensorflow/hub/blob/r0.1/docs/modules/image.md
