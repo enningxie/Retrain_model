@@ -14,7 +14,7 @@ def parser():
     argparser.add_argument('--test_path', default='/home/enningxie/Documents/DataSets/test')
     argparser.add_argument('--test_set_path', default='/home/enningxie/Documents/DataSets/data_augmentation_13/amxx0001003')
     argparser.add_argument('--data_test_path', default='/var/Data/xz/butterfly/data_augmentation_14_test')
-    argparser.add_argument('--data_path', default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_15', type=str)
+    argparser.add_argument('--data_path', default='/home/enningxie/Documents/DataSets/butter_data/data_augmentation_18', type=str)
     return argparser.parse_args()
 
 
@@ -29,7 +29,7 @@ def copy_op(source_path):
     for dir_ in data_list:
         if os.path.isdir(os.path.join(source_path, dir_)):
             count = 3
-            while len(os.listdir(os.path.join(source_path, dir_))) < 70:
+            while len(os.listdir(os.path.join(source_path, dir_))) < 50:
                 for data in os.listdir(os.path.join(source_path, dir_)):
                     new_name = str(count) + data
                     shutil.copy(os.path.join(os.path.join(source_path, dir_), data), os.path.join(os.path.join(source_path, dir_), new_name))
@@ -61,7 +61,7 @@ def construct_folders(data_path):
 if __name__ == '__main__':
     FLAGS = parser()
     # train_test_split_(FLAGS.data_path, FLAGS.data_test_path)
-    # construct_folders(FLAGS.data_path)
+    construct_folders(FLAGS.data_path)
     copy_op(FLAGS.data_path)
 
 

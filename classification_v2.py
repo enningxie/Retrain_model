@@ -5,7 +5,7 @@ import tensorflow as tf
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--image', default='/var/Data/xz/butterfly/crop_img1', type=str, help='Absolute path to image file.')
+    '--image', default='/home/enningxie/Documents/DataSets/butter_data/crop_img1', type=str, help='Absolute path to image file.')
 parser.add_argument(
     '--num_top_predictions',
     type=int,
@@ -13,12 +13,12 @@ parser.add_argument(
     help='Display this many predictions.')
 parser.add_argument(
     '--graph',
-    default='/var/Data/xz/butterfly/trained_models/inception4/output_graph.pb',
+    default='/home/enningxie/Documents/DataSets/trained_model/tfhub/inception_res_v2_classification/output_graph.pb',
     type=str,
     help='Absolute path to graph file (.pb)')
 parser.add_argument(
     '--labels',
-    default='/var/Data/xz/butterfly/trained_models/inception4/output_labels.txt',
+    default='/home/enningxie/Documents/DataSets/trained_model/tfhub/inception_res_v2_classification/output_labels.txt',
     type=str,
     help='Absolute path to labels file (.txt)')
 parser.add_argument(
@@ -174,7 +174,7 @@ def main(_):
         top_k = pred.argsort()[-FLAGS.num_top_predictions:][::-1]
         logits.append(top_k[0])
 
-    with open('./last_result_v2.txt', 'a') as f:
+    with open('./inception_res_v2_classification.txt', 'a') as f:
         for file_name, label_index in zip(image_files, logits):
             str_ = file_name + ' ' + labels[label_index] + '\n'
             f.write(str_)

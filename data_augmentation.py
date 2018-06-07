@@ -18,7 +18,7 @@ IMAGES = 4
 def arg_parse():
     parser = argparse.ArgumentParser()
     parser.add_argument('--file_path_', type=str,
-                        default='/home/enningxie/Documents/DataSets/crop_imag_jpg')
+                        default='/home/enningxie/Documents/DataSets/butter_data/crop_imag_jpg')
     parser.add_argument('--test_path', type=str,
                         default='/home/enningxie/Documents/DataSets/butterfly_/convert_')
     parser.add_argument('--test_result', type=str,
@@ -325,7 +325,7 @@ def perspective_transform(X_img):
 
 if __name__ == '__main__':
     FLAGS = arg_parse()
-    origin_path = FLAGS.file_path
+    origin_path = FLAGS.file_path_
     to_path = FLAGS.process_data
     # step -1
     # convert_jpg_to_png(FLAGS.test_path, FLAGS.test_convert)
@@ -333,6 +333,8 @@ if __name__ == '__main__':
     # print(path[0].split('/')[-1][:11])
     # step 0: resize
     X_imgs, X_label0 = tf_resize_images(path)
+    print(len(X_label0))
+    print(X_label0)
     img_save_op(X_imgs, X_label0, to_path, 0)
     # step 1: scale
     # Produce each image at scaling of 90%, 75% and 60% of original image.
@@ -343,7 +345,7 @@ if __name__ == '__main__':
     img_save_op(translated_imgs, X_label2, to_path, 2)
     # step 3: Rotation at 90 degrees
     rotated_imgs, X_label3 = rotate_images(X_imgs, X_label0)
-    img_save_op(rotated_imgs, X_label2, to_path, 3)
+    img_save_op(rotated_imgs, X_label3, to_path, 3)
     # step 4: Rotation at finer angles
     # Start rotation at -90 degrees, end at 90 degrees and produce totally 14 images
     rotated_imgs_, X_label4 = rotate_images_(X_imgs, X_label0, -90, 90, 14)
@@ -357,9 +359,9 @@ if __name__ == '__main__':
     # step 7: Lighting condition by adding Gaussian noise
     gaussian_noise_imgs = add_gaussian_noise(X_imgs)
     img_save_op(gaussian_noise_imgs, X_label0, to_path, 7)
-    # # step 8:
-    # # perspective_img = perspective_transform(X_imgs[0])
-    # # img_save_op(perspective_img, FLAGS.process_data, 8)
+    # step 8:
+    # perspective_img = perspective_transform(X_imgs[0])
+    # img_save_op(perspective_img, FLAGS.process_data, 8)
 
 
 

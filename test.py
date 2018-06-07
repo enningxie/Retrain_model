@@ -1,10 +1,7 @@
 import tensorflow as tf
 
-model_path = '/home/enningxie/Documents/DataSets/trained_model/vgg_16_2016_08_28/vgg_16.ckpt'
-saver = tf.train.Saver()
+path = '/home/enningxie/Documents/DataSets/butter_data/crop_img1/AAaa0001002_1_1.jpg'
 
-with tf.Session() as sess:
-    saver.restore(sess, model_path)
-    tensor_name_list = [tensor.name for tensor in tf.get_default_graph().as_graph_def().node]
-    for tensor_name in tensor_name_list:
-        print(tensor_name, '\n')
+if __name__ == '__main__':
+    test_image = tf.read_file(path, 'test_name')
+    print(type(test_image))
